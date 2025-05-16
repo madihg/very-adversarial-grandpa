@@ -204,16 +204,31 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-200">
+    <div className="min-h-screen bg-black" style={{
+      backgroundImage: "url('https://media.istockphoto.com/id/1169495140/photo/the-surface-of-the-lava-background.jpg?s=612x612&w=0&k=20&c=SmmEexArJ-2BKmPgDxC5wCA5AWzkNQwzJg2sulwHFss=')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundBlendMode: "overlay"
+    }}>
       <div className="container mx-auto max-w-4xl px-4 py-8">
-        <div className="bg-white rounded-xl shadow-xl overflow-hidden">
+        <div className="bg-black bg-opacity-80 rounded-lg border-2 border-red-600 shadow-2xl overflow-hidden" style={{
+          boxShadow: "0 0 20px #ff3300, 0 0 40px rgba(255, 0, 0, 0.4)"
+        }}>
           <div className="h-[700px] flex flex-col">
-            <div className="p-4 bg-blue-50 border-b border-blue-200">
-              <h1 className="text-2xl font-semibold text-gray-800">AI Poet Chat</h1>
-              <p className="text-sm text-gray-600">Chat with Grampy, the grumpy grandpa</p>
+            <div className="p-4 bg-gradient-to-r from-red-900 to-orange-800 border-b-2 border-red-600">
+              <h1 className="text-2xl font-bold text-red-300 uppercase tracking-widest" style={{
+                fontFamily: "'Cinzel', serif",
+                textShadow: "0 0 10px #ff6600, 0 0 5px #ff3300"
+              }}>TARTARUS CHAT</h1>
+              <p className="text-sm text-amber-300 italic">Speak with Grampy, the tormentor of souls</p>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 space-y-6">
+            <div className="flex-1 overflow-y-auto p-4 space-y-6" style={{
+              backgroundImage: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('https://media.istockphoto.com/id/1169495140/photo/the-surface-of-the-lava-background.jpg?s=612x612&w=0&k=20&c=SmmEexArJ-2BKmPgDxC5wCA5AWzkNQwzJg2sulwHFss=')",
+              backgroundSize: "cover",
+              backgroundAttachment: "fixed"
+            }}>
               {messages.slice(1).map((message) => (
                 <div
                   key={message.id}
@@ -222,8 +237,10 @@ export default function Home() {
                   }`}
                 >
                   {message.role === 'assistant' && (
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                      <Bot size={20} className="text-blue-600" />
+                    <div className="w-8 h-8 rounded-full bg-red-900 flex items-center justify-center border border-red-600" style={{
+                      boxShadow: "0 0 10px #ff3300"
+                    }}>
+                      <Bot size={20} className="text-orange-300" />
                     </div>
                   )}
 
@@ -233,19 +250,24 @@ export default function Home() {
                     }`}
                   >
                     <div
-                      className={`rounded-2xl p-4 ${
+                      className={`rounded-lg p-4 ${
                         message.role === 'user'
-                          ? 'bg-blue-500 text-white' + (message.isFloating ? ' animate-bounce' : '')
-                          : 'bg-gray-100 text-gray-800'
+                          ? 'bg-blue-900 text-blue-100 border border-blue-400' + (message.isFloating ? ' animate-pulse' : '')
+                          : 'bg-gradient-to-r from-red-900 to-red-800 text-orange-100 border border-red-500'
                       }`}
+                      style={{
+                        boxShadow: message.role === 'user' ? "0 0 10px rgba(59, 130, 246, 0.5)" : "0 0 15px rgba(255, 0, 0, 0.3)",
+                      }}
                     >
-                      <p className="whitespace-pre-wrap">{message.content}</p>
+                      <p className="whitespace-pre-wrap" style={{
+                        fontFamily: message.role === 'assistant' ? "'Crimson Text', serif" : "'Quicksand', sans-serif"
+                      }}>{message.content}</p>
                     </div>
 
                     {message.role === 'assistant' && (
                       <button
                         onClick={() => speakText(message.content)}
-                        className="mt-2 text-gray-500 hover:text-gray-700 transition-colors"
+                        className="mt-2 text-amber-500 hover:text-amber-300 transition-colors"
                         aria-label="Text to speech"
                       >
                         <Volume2 size={16} />
@@ -253,15 +275,17 @@ export default function Home() {
                     )}
 
                     {message.timestamp && (
-                      <span className="text-xs text-gray-500 mt-1">
+                      <span className="text-xs text-gray-400 mt-1 italic">
                         {new Date(message.timestamp).toLocaleTimeString()}
                       </span>
                     )}
                   </div>
 
                   {message.role === 'user' && (
-                    <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-                      <User size={20} className="text-gray-600" />
+                    <div className="w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center border border-blue-400" style={{
+                      boxShadow: "0 0 10px rgba(59, 130, 246, 0.5)"
+                    }}>
+                      <User size={20} className="text-blue-300" />
                     </div>
                   )}
                 </div>
@@ -269,14 +293,18 @@ export default function Home() {
 
               {isLoading && (
                 <div className="flex justify-start items-center space-x-2">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                    <Bot size={20} className="text-blue-600" />
+                  <div className="w-8 h-8 rounded-full bg-red-900 flex items-center justify-center border border-red-600" style={{
+                    boxShadow: "0 0 10px #ff3300"
+                  }}>
+                    <Bot size={20} className="text-orange-300" />
                   </div>
-                  <div className="bg-gray-100 rounded-2xl p-4">
+                  <div className="bg-gradient-to-r from-red-900 to-red-800 border border-red-500 rounded-lg p-4" style={{
+                    boxShadow: "0 0 15px rgba(255, 0, 0, 0.3)"
+                  }}>
                     <div className="flex space-x-2">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                      <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></div>
+                      <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" style={{ animationDelay: '150ms' }}></div>
+                      <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></div>
                     </div>
                   </div>
                 </div>
@@ -284,14 +312,17 @@ export default function Home() {
               <div ref={messagesEndRef} />
             </div>
 
-            <div className="p-4 bg-white border-t border-gray-200">
+            <div className="p-4 bg-gradient-to-r from-black to-red-950 border-t-2 border-red-600">
               <form onSubmit={handleSubmit} className="flex items-center space-x-2">
                 <input
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Speak to Grampy..."
-                  className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Speak your sins..."
+                  className="flex-1 p-3 border-2 border-red-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-black text-amber-200 placeholder-red-300"
+                  style={{
+                    boxShadow: "inset 0 0 10px rgba(255, 0, 0, 0.3)"
+                  }}
                   disabled={isLoading}
                 />
                 <button
@@ -299,16 +330,22 @@ export default function Home() {
                   onClick={isRecording ? stopRecording : startRecording}
                   className={`p-3 rounded-lg transition-colors ${
                     isRecording
-                      ? 'bg-red-500 hover:bg-red-600 text-white'
-                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                      ? 'bg-red-600 hover:bg-red-700 text-white border-2 border-red-400'
+                      : 'bg-gray-900 hover:bg-gray-800 text-red-400 border-2 border-red-600'
                   }`}
+                  style={{
+                    boxShadow: isRecording ? "0 0 15px rgba(255, 0, 0, 0.5)" : "0 0 10px rgba(255, 0, 0, 0.3)"
+                  }}
                   disabled={isLoading}
                 >
                   {isRecording ? <Square size={20} /> : <Mic size={20} />}
                 </button>
                 <button
                   type="submit"
-                  className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-3 bg-gradient-to-r from-red-800 to-red-600 text-white rounded-lg hover:from-red-700 hover:to-red-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed border-2 border-red-400"
+                  style={{
+                    boxShadow: "0 0 15px rgba(255, 0, 0, 0.3)"
+                  }}
                   disabled={!input.trim() || isLoading}
                 >
                   <Send size={20} />
